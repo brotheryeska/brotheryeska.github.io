@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=480">
+
+
+    <script>
+        var jenisDadu = {
+            4: '<svg width="50" height="50"><polygon points="0,3 25,46 50,3" style="stroke: black; fill: none" /><text fill="black" x="20" y="26" font-family="Verdana" font-size="18">REPLACEME</text></svg>',
+            6: '<svg width="50" height="50"><polygon points="3,3 3,47 47,47 47,3" style="stroke: black; fill: none" /><text fill="black" x="20" y="30" font-family="Verdana" font-size="18">REPLACEME</text></svg>',
+            8: '<svg width="60" height="50"><polygon points="17,0 60,25 17,50 17,0 0,25 17,50" style="stroke: black; fill: none" /><text fill="black" x="25" y="30" font-family="Verdana" font-size="18">REPLACEME</text></svg>',
+            'other': '<svg width="50" height="50"><circle cx="25" cy="25" r="20" style="stroke: black; fill: none" /><text fill="black" x="13" y="31" font-family="Verdana" font-size="18">REPLACEME</text></svg>'
+        };
+
+        function kocok() {
+            total = 0;
+            n = document.getElementById('num').value;
+            d = document.getElementById('die').value;
+            o = document.getElementById('output');
+            p = o.innerHTML;
+
+            if (d in jenisDadu) {
+                face = jenisDadu[d];
+            } else {
+                face = jenisDadu['other'];
+            }
+
+            if (p != '') {
+                p = p.concat("<hr>")
+            } else {
+                p = p.concat('<button id="clear" onclick="hapus()" style="float:right;">Clear</button>');
+            }
+            for (i = 0; i < n; i++) {
+                r = Math.ceil(Math.random() * d);
+                total += r;
+                p = p.concat("<span> " + face.replace('REPLACEME', r.toString()) + " </span>");
+            }
+            p += " Total: " + total;
+            o.innerHTML = p;
+        }
+
+        function hapus() {
+            o = document.getElementById('output');
+            o.innerHTML = "";
+        }
+
+        function loady() {
+            for (f in jenisDadu) {
+                e = document.getElementById(f);
+                if (e) e.innerHTML = jenisDadu[f].replace("REPLACEME", f);
+            }
+        }
+
+        function onKlik(Hasil) {
+            n = document.getElementById('num');
+            d = document.getElementById('die');
+            if (Hasil.id == d.value) {
+                n.value = Number(n.value) + 1;
+            } else {
+                n.value = 1;
+                d.value = Hasilc.id
+            }
+        }
+    </script>
+</head>
+
+<body onload=loady()>
+    <div class='title'>ROLL THE DICE!</div>
+    <div class='outer'>
+        <div id="control">
+            Jumlah :<input type="number" step="1" id="num" value='3' maxlength="3" size="1" width="1em"> Dadu: <input type="number" step="1" id="die" value='6' maxlength="3" size="1">
+            <button id="roll" onclick="kocok()">Roll</button>
+        </div>
+
+        <div class='dadu'>
+            <span id="4" onclick="onKlik(this)">
+</span>
+            <span id="6" onclick="onKlik(this)">
+</span>
+            <span id="8" onclick="onKlik(this)">
+</span>
+        </div>
+
+        <div id="output"></div>
+    </div>
+    <footer>CREATED BY @brotheryeska</footer>
+</body>
+
+</html>
